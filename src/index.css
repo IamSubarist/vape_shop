@@ -114,10 +114,53 @@
   }
 }
 
-/* Анимация появления карточек теперь через framer-motion */
-/* Оставим стили для совместимости, но они будут переопределены framer-motion */
+/* Оптимизированная CSS анимация появления карточек для слабых устройств */
+@keyframes card-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) translateZ(0) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateZ(0) scale(1);
+  }
+}
 
-/* Стили для карточек теперь управляются через framer-motion */
+.card-enter {
+  animation: card-enter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* Оптимизация для GPU ускорения */
+.card-enter {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+}
+
+/* Оптимизированный hover эффект для карточек */
+.card-enter {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card-enter:hover {
+  transform: scale(1.02) translateZ(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-enter:hover {
+    transform: none;
+  }
+}
 
 /* Оптимизированное свечение для кнопки */
 .button-glow {
@@ -146,6 +189,49 @@
   }
   50% {
     background-position: 100% 50%;
+  }
+}
+
+/* Стили для рамки карточки */
+.border-frame {
+  transition: opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-enter:hover .border-frame {
+  opacity: 1;
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.6), 0 0 40px rgba(236, 72, 153, 0.4),
+    0 0 60px rgba(249, 115, 22, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-enter:hover .border-frame {
+    box-shadow: none;
+  }
+}
+
+/* Градиентный фон при hover */
+.card-glow-bg {
+  background: radial-gradient(
+    circle at center,
+    rgba(124, 58, 237, 0.15),
+    rgba(236, 72, 153, 0.1),
+    transparent
+  );
+}
+
+/* Внутреннее свечение карточки */
+.card-inner {
+  transition: box-shadow 0.3s ease;
+}
+
+.card-enter:hover .card-inner {
+  box-shadow: inset 0 0 30px rgba(124, 58, 237, 0.1),
+    0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-enter:hover .card-inner {
+    box-shadow: none;
   }
 }
 

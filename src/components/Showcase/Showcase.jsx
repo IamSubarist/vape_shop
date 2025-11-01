@@ -1,5 +1,4 @@
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
 
 // Компонент для отображения деталей продукта
 const ProductDetails = ({ item, type }) => {
@@ -42,88 +41,31 @@ const ProductDetails = ({ item, type }) => {
 
 // Компонент карточки продукта
 const ProductCard = ({ item, type, index }) => {
-  const shouldReduceMotion = useReducedMotion();
-
   const handleBuyClick = (e) => {
     e.preventDefault();
     // Здесь можно добавить логику добавления в корзину
     console.log("Добавить в корзину:", item);
   };
 
-  // Оптимизированная анимация для слабых устройств (только transform и opacity для GPU ускорения)
-  const cardVariants = {
-    hidden: {
-      opacity: shouldReduceMotion ? 1 : 0,
-      y: shouldReduceMotion ? 0 : 50,
-      scale: shouldReduceMotion ? 1 : 0.92,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: shouldReduceMotion
-        ? { duration: 0 }
-        : {
-            duration: 0.6,
-            ease: [0.23, 1, 0.32, 1], // Плавная кривая для красивого эффекта
-            opacity: { duration: 0.5 },
-            y: { duration: 0.6, ease: [0.23, 1, 0.32, 1] },
-            scale: { duration: 0.6, ease: [0.23, 1, 0.32, 1] },
-          },
-    },
+  // CSS анимация появления с задержкой
+  const cardStyle = {
+    animationDelay: `${index * 0.08}s`,
   };
 
-  // Определяем, нужно ли использовать will-change (только для первых карточек)
-  const shouldUseWillChange = !shouldReduceMotion && index < 9;
-
   return (
-    <motion.div
-      className="group relative rounded-2xl overflow-visible"
-      variants={cardVariants}
-      initial="hidden"
-      animate="visible"
-      whileHover={
-        shouldReduceMotion
-          ? {}
-          : {
-              scale: 1.02,
-              transition: { duration: 0.3, ease: [0.23, 1, 0.32, 1] },
-            }
-      }
-      style={{
-        willChange: shouldUseWillChange ? "transform, opacity" : "auto",
-      }}
+    <div
+      className="group relative rounded-2xl overflow-visible card-enter"
+      style={cardStyle}
     >
       {/* Градиентная рамка с красивым свечением */}
-      <motion.div
-        className="absolute -inset-[1px] rounded-2xl"
+      <div
+        className="absolute -inset-[1px] rounded-2xl border-frame"
         style={{
           background:
             "linear-gradient(135deg, #7C3AED, #EC4899, #F97316, #06B6D4, #7C3AED)",
           backgroundSize: "200% 200%",
-        }}
-        animate={{
-          backgroundPosition: shouldReduceMotion
-            ? "0% 50%"
-            : ["0% 50%", "100% 50%", "0% 50%"],
-        }}
-        whileHover={
-          shouldReduceMotion
-            ? {}
-            : {
-                opacity: 1,
-                boxShadow:
-                  "0 0 20px rgba(124, 58, 237, 0.6), 0 0 40px rgba(236, 72, 153, 0.4), 0 0 60px rgba(249, 115, 22, 0.2)",
-                transition: { duration: 0.3 },
-              }
-        }
-        initial={{ opacity: 0.6 }}
-        transition={{
-          backgroundPosition: {
-            duration: 4,
-            repeat: Infinity,
-            ease: "linear",
-          },
+          animation: "border-glow 4s ease infinite",
+          opacity: 0.6,
         }}
       />
 
@@ -131,34 +73,12 @@ const ProductCard = ({ item, type, index }) => {
       <div className="absolute -inset-[0.5px] rounded-2xl bg-gradient-to-br from-black/30 via-transparent to-transparent pointer-events-none" />
 
       {/* Градиентный фон с эффектом подсветки при hover */}
-      <motion.div
-        className="absolute inset-0 rounded-2xl"
-        initial={{ opacity: 0 }}
-        whileHover={
-          shouldReduceMotion
-            ? {}
-            : {
-                opacity: 1,
-                background:
-                  "radial-gradient(circle at center, rgba(124, 58, 237, 0.15), rgba(236, 72, 153, 0.1), transparent)",
-                transition: { duration: 0.3 },
-              }
-        }
-      />
+      <div className="absolute inset-0 rounded-2xl card-glow-bg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       {/* Основной фон карточки */}
-      <motion.div
-        className="relative bg-gradient-to-br from-[#1a1625] via-[#25213C] to-[#1e2d3f] rounded-2xl overflow-hidden"
+      <div
+        className="relative bg-gradient-to-br from-[#1a1625] via-[#25213C] to-[#1e2d3f] rounded-2xl overflow-hidden card-inner"
         style={{ margin: "1px" }}
-        whileHover={
-          shouldReduceMotion
-            ? {}
-            : {
-                boxShadow:
-                  "inset 0 0 30px rgba(124, 58, 237, 0.1), 0 10px 40px rgba(0, 0, 0, 0.3)",
-                transition: { duration: 0.3 },
-              }
-        }
       >
         {/* Изображение товара */}
         <div className="relative overflow-hidden bg-gradient-to-b from-black/40 to-black/20">
@@ -240,29 +160,12 @@ const ProductCard = ({ item, type, index }) => {
             </button>
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 };
 
 export const Showcase = ({ title, dataUrl, type = "liquids" }) => {
-  const shouldReduceMotion = useReducedMotion();
-
-  // Контейнерная анимация для последовательного появления
-  const containerVariants = {
-    hidden: { opacity: shouldReduceMotion ? 1 : 0 },
-    visible: {
-      opacity: 1,
-      transition: shouldReduceMotion
-        ? { duration: 0 }
-        : {
-            staggerChildren: 0.08,
-            delayChildren: 0.1,
-            when: "beforeChildren",
-          },
-    },
-  };
-
   return (
     <div>
       {/* <p
@@ -271,16 +174,11 @@ export const Showcase = ({ title, dataUrl, type = "liquids" }) => {
       >
         {title}
       </p> */}
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {dataUrl.map((item, index) => (
           <ProductCard key={item.id} item={item} type={type} index={index} />
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };

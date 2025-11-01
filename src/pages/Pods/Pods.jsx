@@ -5,7 +5,7 @@ export const Pods = () => {
   const mockItems = [
     {
       id: 1,
-      title: "GHOST SHISHA 15000💨",
+      title: "GHOST SHISHA 15000",
       taste: "Черника малина🫐🍓",
       price: "800",
       puffs: "15000",
@@ -13,7 +13,7 @@ export const Pods = () => {
     },
     {
       id: 2,
-      title: "GHOST SHISHA 15000💨",
+      title: "GHOST SHISHA 15000",
       taste: "Персик лед🍑🧊",
       price: "800",
       puffs: "15000",
@@ -21,7 +21,7 @@ export const Pods = () => {
     },
     {
       id: 3,
-      title: "WAKA soPro 28000💨",
+      title: "WAKA soPro 28000",
       taste: "Blue razz mint🍵",
       price: "1150",
       puffs: "28000",
@@ -29,7 +29,7 @@ export const Pods = () => {
     },
     {
       id: 3,
-      title: "WAKA soPro 28000💨",
+      title: "WAKA soPro 28000",
       taste: "Raspberry Cola🍓🥤",
       price: "1150",
       puffs: "28000",
