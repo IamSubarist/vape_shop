@@ -56,43 +56,42 @@ const ProductCard = ({ item, type, index }) => {
       className="group relative rounded-2xl overflow-visible card-enter"
       style={cardStyle}
     >
-      {/* Градиентная рамка с постоянным свечением */}
+      {/* Градиентная рамка с упрощенным свечением */}
       <div
-        className="absolute -inset-[2px] rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+        className="absolute -inset-[2px] rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-300"
         style={{
           background:
             "linear-gradient(135deg, #7C3AED, #EC4899, #F97316, #06B6D4, #7C3AED)",
-          backgroundSize: "300% 300%",
+          backgroundSize: "200% 200%",
           animation: "border-glow 4s ease infinite",
-          filter: "blur(1px)",
         }}
       />
 
       {/* Внутренняя тень для глубины */}
       <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-black/40 via-transparent to-transparent pointer-events-none" />
 
-      {/* Градиентный фон с эффектом свечения */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-pink-900/10 to-orange-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+      {/* Градиентный фон с упрощенным эффектом свечения */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-pink-900/10 to-orange-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
 
       {/* Основной фон карточки */}
       <div
         className="relative bg-gradient-to-br from-[#1a1625] via-[#25213C] to-[#1e2d3f] rounded-2xl overflow-hidden"
         style={{ margin: "2px" }}
       >
-        {/* Эффект свечения при hover */}
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-pink-500/10 to-purple-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
+        {/* Упрощенный эффект свечения при hover */}
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-pink-500/10 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Изображение товара */}
         <div className="relative overflow-hidden bg-gradient-to-b from-black/40 to-black/20">
           <div className="w-full h-[240px] flex items-center justify-center relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <p className="text-2xl text-center text-gray-400 group-hover:text-gray-300 transition-colors">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            <p className="text-2xl text-center text-gray-400 group-hover:text-gray-300 transition-colors duration-200">
               Картинка товара
             </p>
           </div>
 
           {/* Бейдж "Популярный" (можно сделать динамическим) */}
-          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             <span className="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50">
               Популярный
             </span>
@@ -141,7 +140,7 @@ const ProductCard = ({ item, type, index }) => {
             {/* Кнопка "Купить" */}
             <button
               onClick={handleBuyClick}
-              className="relative px-6 py-3 rounded-xl font-bold text-sm text-white overflow-hidden transition-all duration-300 transform group-hover:scale-105 active:scale-95 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50"
+              className="relative px-6 py-3 rounded-xl font-bold text-sm text-white overflow-hidden transition-all duration-200 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <svg
@@ -159,8 +158,6 @@ const ProductCard = ({ item, type, index }) => {
                 </svg>
                 Купить
               </span>
-              {/* Эффект свечения на кнопке */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
             </button>
           </div>
         </div>
