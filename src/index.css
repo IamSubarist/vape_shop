@@ -49,16 +49,29 @@
   }
 }
 
-/* Упрощенная пульсация - только градиент */
+/* Оптимизированное свечение для заголовка с box-shadow */
+@keyframes title-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 8px rgba(124, 58, 237, 0.4),
+      0 0 12px rgba(236, 72, 153, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 12px rgba(124, 58, 237, 0.6),
+      0 0 18px rgba(236, 72, 153, 0.4);
+  }
+}
+
 .animated-title {
   background-size: 200% auto;
-  animation: title-gradient 4s ease infinite;
+  animation: title-gradient 4s ease infinite, title-glow 3s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animated-title {
     animation: none;
     background-position: 0% 50%;
+    text-shadow: 0 0 8px rgba(124, 58, 237, 0.4);
   }
 }
 
@@ -75,55 +88,53 @@
   }
 }
 
-/* Упрощенная анимация цены - только градиент */
+/* Оптимизированное свечение для цены с box-shadow */
+@keyframes price-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 8px rgba(168, 85, 247, 0.4),
+      0 0 12px rgba(236, 72, 153, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 12px rgba(168, 85, 247, 0.6),
+      0 0 18px rgba(236, 72, 153, 0.4);
+  }
+}
+
 .animated-price {
   background-size: 200% auto;
-  animation: price-gradient 4s ease infinite;
+  animation: price-gradient 4s ease infinite, price-glow 3s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animated-price {
     animation: none;
     background-position: 0% 50%;
+    text-shadow: 0 0 8px rgba(168, 85, 247, 0.4);
   }
 }
 
-/* Упрощенная анимация появления карточек для слабых устройств */
-@keyframes card-enter-animation {
-  0% {
-    opacity: 0;
-    transform: translateY(30px) translateZ(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) translateZ(0);
-  }
+/* Анимация появления карточек теперь через framer-motion */
+/* Оставим стили для совместимости, но они будут переопределены framer-motion */
+
+/* Стили для карточек теперь управляются через framer-motion */
+
+/* Оптимизированное свечение для кнопки */
+.button-glow {
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3),
+    0 2px 6px rgba(236, 72, 153, 0.2);
+  transition: box-shadow 0.2s ease-out;
 }
 
-.card-enter {
-  animation: card-enter-animation 0.4s ease-out forwards;
-  opacity: 0;
+.button-glow:hover {
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.4),
+    0 4px 10px rgba(236, 72, 153, 0.3), 0 0 20px rgba(124, 58, 237, 0.2);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card-enter {
-    animation: none;
-    opacity: 1;
-  }
-}
-
-/* Упрощенные стили для карточек */
-.product-card {
-  transition: transform 0.2s ease-out;
-}
-
-.product-card:hover {
-  transform: translateY(-4px) translateZ(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .product-card:hover {
-    transform: none;
+  .button-glow:hover {
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3),
+      0 2px 6px rgba(236, 72, 153, 0.2);
   }
 }
 
@@ -138,14 +149,31 @@
   }
 }
 
-/* Упрощенные стили для логотипа - только градиент */
+/* Оптимизированное свечение для логотипа */
+@keyframes logo-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 12px rgba(168, 85, 247, 0.3),
+      0 0 20px rgba(236, 72, 153, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 18px rgba(168, 85, 247, 0.5),
+      0 0 30px rgba(236, 72, 153, 0.3);
+  }
+}
+
+.logo-text {
+  text-shadow: 0 0 12px rgba(168, 85, 247, 0.3);
+}
+
 .logo-text span {
-  animation: gradient-shift 5s ease infinite;
+  animation: gradient-shift 5s ease infinite, logo-glow 4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .logo-text span {
     animation: none;
     background-position: 0% 50%;
+    text-shadow: 0 0 12px rgba(168, 85, 247, 0.3);
   }
 }

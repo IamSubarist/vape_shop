@@ -1,4 +1,5 @@
 import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 // Компонент для отображения деталей продукта
 const ProductDetails = ({ item, type }) => {
@@ -41,9 +42,7 @@ const ProductDetails = ({ item, type }) => {
 
 // Компонент карточки продукта
 const ProductCard = ({ item, type, index }) => {
-  const cardStyle = {
-    animationDelay: `${index * 0.12}s`,
-  };
+  const shouldReduceMotion = useReducedMotion();
 
   const handleBuyClick = (e) => {
     e.preventDefault();
@@ -51,36 +50,116 @@ const ProductCard = ({ item, type, index }) => {
     console.log("Добавить в корзину:", item);
   };
 
+  // Оптимизированная анимация для слабых устройств (только transform и opacity для GPU ускорения)
+  const cardVariants = {
+    hidden: {
+      opacity: shouldReduceMotion ? 1 : 0,
+      y: shouldReduceMotion ? 0 : 50,
+      scale: shouldReduceMotion ? 1 : 0.92,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: shouldReduceMotion
+        ? { duration: 0 }
+        : {
+            duration: 0.6,
+            ease: [0.23, 1, 0.32, 1], // Плавная кривая для красивого эффекта
+            opacity: { duration: 0.5 },
+            y: { duration: 0.6, ease: [0.23, 1, 0.32, 1] },
+            scale: { duration: 0.6, ease: [0.23, 1, 0.32, 1] },
+          },
+    },
+  };
+
+  // Определяем, нужно ли использовать will-change (только для первых карточек)
+  const shouldUseWillChange = !shouldReduceMotion && index < 9;
+
   return (
-    <div
-      className="group relative rounded-2xl overflow-visible card-enter"
-      style={cardStyle}
+    <motion.div
+      className="group relative rounded-2xl overflow-visible"
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      whileHover={
+        shouldReduceMotion
+          ? {}
+          : {
+              scale: 1.02,
+              transition: { duration: 0.3, ease: [0.23, 1, 0.32, 1] },
+            }
+      }
+      style={{
+        willChange: shouldUseWillChange ? "transform, opacity" : "auto",
+      }}
     >
-      {/* Градиентная рамка с упрощенным свечением */}
-      <div
-        className="absolute -inset-[2px] rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+      {/* Градиентная рамка с красивым свечением */}
+      <motion.div
+        className="absolute -inset-[1px] rounded-2xl"
         style={{
           background:
             "linear-gradient(135deg, #7C3AED, #EC4899, #F97316, #06B6D4, #7C3AED)",
           backgroundSize: "200% 200%",
-          animation: "border-glow 4s ease infinite",
+        }}
+        animate={{
+          backgroundPosition: shouldReduceMotion
+            ? "0% 50%"
+            : ["0% 50%", "100% 50%", "0% 50%"],
+        }}
+        whileHover={
+          shouldReduceMotion
+            ? {}
+            : {
+                opacity: 1,
+                boxShadow:
+                  "0 0 20px rgba(124, 58, 237, 0.6), 0 0 40px rgba(236, 72, 153, 0.4), 0 0 60px rgba(249, 115, 22, 0.2)",
+                transition: { duration: 0.3 },
+              }
+        }
+        initial={{ opacity: 0.6 }}
+        transition={{
+          backgroundPosition: {
+            duration: 4,
+            repeat: Infinity,
+            ease: "linear",
+          },
         }}
       />
 
       {/* Внутренняя тень для глубины */}
-      <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-black/40 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute -inset-[0.5px] rounded-2xl bg-gradient-to-br from-black/30 via-transparent to-transparent pointer-events-none" />
 
-      {/* Градиентный фон с упрощенным эффектом свечения */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-pink-900/10 to-orange-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+      {/* Градиентный фон с эффектом подсветки при hover */}
+      <motion.div
+        className="absolute inset-0 rounded-2xl"
+        initial={{ opacity: 0 }}
+        whileHover={
+          shouldReduceMotion
+            ? {}
+            : {
+                opacity: 1,
+                background:
+                  "radial-gradient(circle at center, rgba(124, 58, 237, 0.15), rgba(236, 72, 153, 0.1), transparent)",
+                transition: { duration: 0.3 },
+              }
+        }
+      />
 
       {/* Основной фон карточки */}
-      <div
+      <motion.div
         className="relative bg-gradient-to-br from-[#1a1625] via-[#25213C] to-[#1e2d3f] rounded-2xl overflow-hidden"
-        style={{ margin: "2px" }}
+        style={{ margin: "1px" }}
+        whileHover={
+          shouldReduceMotion
+            ? {}
+            : {
+                boxShadow:
+                  "inset 0 0 30px rgba(124, 58, 237, 0.1), 0 10px 40px rgba(0, 0, 0, 0.3)",
+                transition: { duration: 0.3 },
+              }
+        }
       >
-        {/* Упрощенный эффект свечения при hover */}
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-pink-500/10 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
         {/* Изображение товара */}
         <div className="relative overflow-hidden bg-gradient-to-b from-black/40 to-black/20">
           <div className="w-full h-[240px] flex items-center justify-center relative">
@@ -137,10 +216,10 @@ const ProductCard = ({ item, type, index }) => {
               <p className="text-xs text-gray-500">за штуку</p>
             </div>
 
-            {/* Кнопка "Купить" */}
+            {/* Кнопка "Купить" с оптимизированным свечением */}
             <button
               onClick={handleBuyClick}
-              className="relative px-6 py-3 rounded-xl font-bold text-sm text-white overflow-hidden transition-all duration-200 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50"
+              className="relative px-6 py-3 rounded-xl font-bold text-sm text-white overflow-hidden transition-all duration-200 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 button-glow"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <svg
@@ -161,12 +240,29 @@ const ProductCard = ({ item, type, index }) => {
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
 export const Showcase = ({ title, dataUrl, type = "liquids" }) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  // Контейнерная анимация для последовательного появления
+  const containerVariants = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0 },
+    visible: {
+      opacity: 1,
+      transition: shouldReduceMotion
+        ? { duration: 0 }
+        : {
+            staggerChildren: 0.08,
+            delayChildren: 0.1,
+            when: "beforeChildren",
+          },
+    },
+  };
+
   return (
     <div>
       {/* <p
@@ -175,11 +271,16 @@ export const Showcase = ({ title, dataUrl, type = "liquids" }) => {
       >
         {title}
       </p> */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {dataUrl.map((item, index) => (
           <ProductCard key={item.id} item={item} type={type} index={index} />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };
