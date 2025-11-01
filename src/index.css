@@ -152,3 +152,22 @@
     background-position: 100% 50%;
   }
 }
+
+/* Стили для логотипа */
+@keyframes logo-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.25));
+  }
+  50% {
+    filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.35));
+  }
+}
+
+.logo-text {
+  animation: logo-glow 4s ease-in-out infinite;
+}
+
+.logo-text span {
+  animation: gradient-shift 5s ease infinite;
+}
