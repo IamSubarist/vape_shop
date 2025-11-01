@@ -47,6 +47,48 @@ const ProductCard = ({ item, type, index }) => {
     console.log("Добавить в корзину:", item);
   };
 
+  // Форматирование данных товара для копирования
+  const formatProductData = (product) => {
+    let text = `🛍️ ${product.title}\n\n`;
+
+    if (product.taste) {
+      text += `Вкус: ${product.taste}\n`;
+    }
+
+    if (product.volume) {
+      text += `Объем: ${product.volume}\n`;
+    }
+
+    if (product.nicotine) {
+      text += `Крепость: ${product.nicotine}\n`;
+    }
+
+    if (product.puffs) {
+      text += `Кол-во затяжек: ${Number(product.puffs).toLocaleString()}\n`;
+    }
+
+    text += `\n💰 Цена: ${Number(product.price).toLocaleString()}₽`;
+
+    return text;
+  };
+
+  // Обработчик клика на ссылку с копированием данных
+  const handleLinkClick = async (e) => {
+    e.preventDefault();
+    const linkUrl = e.currentTarget.href;
+
+    try {
+      const productText = formatProductData(item);
+      await navigator.clipboard.writeText(productText);
+      // Открываем ссылку после успешного копирования
+      window.open(linkUrl, "_blank", "noopener,noreferrer");
+    } catch (err) {
+      console.error("Ошибка при копировании в буфер обмена:", err);
+      // Даже если копирование не удалось, открываем ссылку
+      window.open(linkUrl, "_blank", "noopener,noreferrer");
+    }
+  };
+
   // CSS анимация появления с задержкой
   const cardStyle = {
     animationDelay: `${index * 0.08}s`,
@@ -137,27 +179,34 @@ const ProductCard = ({ item, type, index }) => {
             </div>
 
             {/* Кнопка "Купить" с оптимизированным свечением */}
-            <button
-              onClick={handleBuyClick}
-              className="relative px-6 py-3 rounded-xl font-bold text-sm text-white overflow-hidden transition-all duration-200 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 button-glow"
+            <a
+              href="https://t.me/imsubarist555"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleLinkClick}
             >
-              <span className="relative z-10 flex items-center gap-2">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
-                Купить
-              </span>
-            </button>
+              <button
+                // onClick={handleBuyClick}
+                className="relative px-6 py-3 rounded-xl font-bold text-sm text-white overflow-hidden transition-all duration-200 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 button-glow"
+              >
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  <svg
+                    className="size-4.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                  Купить
+                </span>
+              </button>
+            </a>
           </div>
         </div>
       </div>
