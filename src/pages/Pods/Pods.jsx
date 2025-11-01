@@ -9,7 +9,7 @@ export const Pods = () => {
       taste: "Черника малина🫐🍓",
       price: "800",
       puffs: "15000",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 2,
@@ -17,7 +17,7 @@ export const Pods = () => {
       taste: "Персик лед🍑🧊",
       price: "800",
       puffs: "15000",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 3,
@@ -25,7 +25,7 @@ export const Pods = () => {
       taste: "Blue razz mint🍵",
       price: "1150",
       puffs: "28000",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 3,
@@ -33,7 +33,7 @@ export const Pods = () => {
       taste: "Raspberry Cola🍓🥤",
       price: "1150",
       puffs: "28000",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
   ];
   return (

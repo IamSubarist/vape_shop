@@ -11,7 +11,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "20mg HARD (50mg)",
       price: "350",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 2,
@@ -21,7 +21,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "20mg HARD (50mg)",
       price: "350",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 3,
@@ -31,7 +31,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "20mg HARD (50mg)",
       price: "350",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 4,
@@ -41,7 +41,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "20mg HARD (50mg)",
       price: "350",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 5,
@@ -51,7 +51,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "20mg Hard",
       price: "360",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 6,
@@ -61,7 +61,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "20mg Hard",
       price: "360",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 7,
@@ -71,7 +71,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "20mg HARD (40-50mg)",
       price: "360",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 8,
@@ -81,7 +81,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "20mg HARD (40-50mg)",
       price: "360",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 9,
@@ -91,7 +91,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "20mg HARD (40-50mg)",
       price: "360",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 10,
@@ -101,7 +101,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "20mg HARD (40-50mg)",
       price: "360",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 11,
@@ -111,7 +111,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "70mg HARD",
       price: "360",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 12,
@@ -121,7 +121,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "70mg HARD",
       price: "360",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 13,
@@ -131,7 +131,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "70mg HARD",
       price: "360",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
     {
       id: 14,
@@ -141,7 +141,7 @@ export const Liquids = () => {
       volume: "30ml",
       nicotine: "70mg HARD",
       price: "360",
-      image: "https://placehold.co/600x400",
+      image: "https://placehold.co/600x360",
     },
   ];
   return (

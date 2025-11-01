@@ -3,3 +3,152 @@
 * {
   font-family: "Neucha", cursive;
 }
+
+/* Анимация переливающегося градиента для заголовка товара */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient-text {
+  background-size: 200% auto;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Анимация для заголовка товара - перелив, пульсация и свечение */
+@keyframes title-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes title-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px rgba(124, 58, 237, 0.5));
+  }
+  50% {
+    transform: scale(1.01);
+    filter: drop-shadow(0 0 12px rgba(236, 72, 153, 0.7));
+  }
+}
+
+.animated-title {
+  background-size: 200% auto;
+  animation: title-gradient 4s ease infinite,
+    title-pulse 3s ease-in-out infinite;
+}
+
+/* Анимация для цены товара - перелив, пульсация и свечение */
+@keyframes price-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes price-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.5));
+  }
+  50% {
+    transform: scale(1.01);
+    filter: drop-shadow(0 0 12px rgba(236, 72, 153, 0.7));
+  }
+}
+
+.animated-price {
+  background-size: 200% auto;
+  animation: price-gradient 4s ease infinite,
+    price-pulse 3s ease-in-out infinite;
+}
+
+/* Красивая анимация появления карточек */
+@keyframes card-enter-animation {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.8) rotateX(-10deg);
+    filter: blur(8px);
+    box-shadow: 0 0 0 rgba(124, 58, 237, 0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-5px) scale(1.02) rotateX(2deg);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0);
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.15);
+  }
+}
+
+.card-enter {
+  animation: card-enter-animation 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)
+    forwards;
+  opacity: 0;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Улучшенные стили для карточек */
+.product-card {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Плавная анимация кнопки */
+@keyframes button-shine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Анимация градиентной рамки */
+@keyframes border-glow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
