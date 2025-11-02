@@ -1,16 +1,81 @@
-# React + Vite
+# Vape Shop - Fullstack приложение
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Магазин вейп-продуктов с React frontend и FastAPI backend.
 
-Currently, two official plugins are available:
+## Структура проекта
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- `src/` - React frontend (Vite)
+- `backend/` - FastAPI backend с SQLite базой данных
 
-## React Compiler
+## Установка и запуск
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+### Backend (Python/FastAPI)
 
-## Expanding the ESLint configuration
+1. Перейдите в папку backend:
+```bash
+cd backend
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2. Установите зависимости:
+```bash
+pip install -r requirements.txt
+```
+
+3. Инициализируйте базу данных с тестовыми данными:
+```bash
+python init_data.py
+```
+
+4. Запустите сервер:
+```bash
+uvicorn main:app --reload
+```
+
+Backend будет доступен по адресу: `http://localhost:8000`
+- Swagger документация: `http://localhost:8000/docs`
+- ReDoc документация: `http://localhost:8000/redoc`
+
+### Frontend (React/Vite)
+
+1. Установите зависимости (если еще не установлены):
+```bash
+npm install
+```
+
+2. Запустите dev сервер:
+```bash
+npm run dev
+```
+
+Frontend будет доступен по адресу: `http://localhost:5173`
+
+## API Endpoints
+
+- `GET /api/products` - Получить все товары (опционально: `?category=liquids`)
+- `GET /api/products/{product_id}` - Получить товар по ID
+- `GET /api/products/category/{category}` - Получить товары по категории
+- `POST /api/products` - Создать новый товар
+
+## Категории товаров
+
+- `liquids` - Жидкости
+- `pods` - Устройства (поды)
+- `cartridges` - Катриджи
+
+## Технологии
+
+### Frontend
+- React 19
+- Vite
+- Tailwind CSS
+- React Router
+
+### Backend
+- FastAPI
+- SQLAlchemy
+- SQLite
+- Pydantic
+
+## База данных
+
+SQLite база данных создается автоматически в файле `vape_shop.db` в папке `backend/`.

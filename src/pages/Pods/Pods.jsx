@@ -1,44 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Showcase } from "../../components/Showcase/Showcase";
+import { api } from "../../utils/api";
 
 export const Pods = () => {
-  const mockItems = [
-    {
-      id: 1,
-      title: "GHOST SHISHA 15000",
-      taste: "Черника малина🫐🍓",
-      price: "800",
-      puffs: "15000",
-      image: "https://placehold.co/600x360",
-    },
-    {
-      id: 2,
-      title: "GHOST SHISHA 15000",
-      taste: "Персик лед🍑🧊",
-      price: "800",
-      puffs: "15000",
-      image: "https://placehold.co/600x360",
-    },
-    {
-      id: 3,
-      title: "WAKA soPro 28000",
-      taste: "Blue razz mint🍵",
-      price: "1150",
-      puffs: "28000",
-      image: "https://placehold.co/600x360",
-    },
-    {
-      id: 3,
-      title: "WAKA soPro 28000",
-      taste: "Raspberry Cola🍓🥤",
-      price: "1150",
-      puffs: "28000",
-      image: "https://placehold.co/600x360",
-    },
-  ];
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const products = await api.getProductsByCategory("pods");
+        // Преобразуем price из числа в строку для совместимости с компонентом
+        const formattedProducts = products.map((product) => ({
+          ...product,
+          price: product.price.toString(),
+          puffs: product.puffs ? product.puffs.toString() : null,
+        }));
+        setItems(formattedProducts);
+      } catch (err) {
+        setError("Не удалось загрузить товары");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <p className="text-gray-400">Загрузка товаров...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <p className="text-red-400">{error}</p>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <Showcase title="Устройства" dataUrl={mockItems} type="pods" />
+      <Showcase title="Устройства" dataUrl={items} type="pods" />
     </div>
   );
 };
