@@ -1,5 +1,5 @@
-const API_BASE_URL = "http://localhost:8000/api";
-// const API_BASE_URL = 'https://vape-shop-backend.onrender.com/api';
+// const API_BASE_URL = "http://localhost:8000/api";
+const API_BASE_URL = 'https://vape-shop-backend.onrender.com/api';
 
 export const api = {
   // Получить все категории
