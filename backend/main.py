@@ -16,7 +16,11 @@ app = FastAPI(
 # Настройка CORS для работы с React frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # Vite по умолчанию на 5173
+    allow_origins=[
+        "http://localhost:5173",  # Локальная разработка Vite
+        "http://localhost:3000",  # Локальная разработка React
+        "https://vape-shop-avec.onrender.com",  # Production frontend на Render
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
