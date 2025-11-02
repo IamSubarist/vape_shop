@@ -263,3 +263,21 @@
     text-shadow: 0 0 12px rgba(168, 85, 247, 0.3);
   }
 }
+
+/* Анимация shimmer для кнопок */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes shimmer {
+    0%, 100% {
+      transform: translateX(0);
+    }
+  }
+}

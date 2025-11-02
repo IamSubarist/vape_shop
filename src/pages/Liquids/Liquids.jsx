@@ -3,36 +3,31 @@ import { Showcase } from "../../components/Showcase/Showcase";
 import { api } from "../../utils/api";
 
 export const Liquids = () => {
-  const [items, setItems] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchCategories = async () => {
       try {
         setLoading(true);
-        const products = await api.getProductsByCategory("liquids");
-        // Преобразуем price из числа в строку для совместимости с компонентом
-        const formattedProducts = products.map((product) => ({
-          ...product,
-          price: product.price.toString(),
-        }));
-        setItems(formattedProducts);
+        const categoriesData = await api.getAllCategories("liquids");
+        setCategories(categoriesData);
       } catch (err) {
-        setError("Не удалось загрузить товары");
+        setError("Не удалось загрузить категории");
         console.error(err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProducts();
+    fetchCategories();
   }, []);
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <p className="text-gray-400">Загрузка товаров...</p>
+        <p className="text-gray-400">Загрузка категорий...</p>
       </div>
     );
   }
@@ -47,7 +42,7 @@ export const Liquids = () => {
 
   return (
     <div>
-      <Showcase title="Жидкости" dataUrl={items} type="liquids" />
+      <Showcase title="Жидкости" dataUrl={categories} type="liquids" isCategory={true} />
     </div>
   );
 };

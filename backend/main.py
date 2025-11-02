@@ -38,11 +38,32 @@ def read_root():
     return {"message": "Vape Shop API", "docs": "/docs"}
 
 
+@app.get("/api/categories", response_model=List[schemas.Category])
+def get_categories(product_type: str = None, db: Session = Depends(get_db)):
+    """Получить все категории или отфильтровать по типу продукта"""
+    query = db.query(models.Category)
+    if product_type:
+        query = query.filter(models.Category.product_type == product_type)
+    categories = query.all()
+    return categories
+
+
+@app.get("/api/categories/{category_id}", response_model=schemas.CategoryWithProducts)
+def get_category(category_id: int, db: Session = Depends(get_db)):
+    """Получить категорию по ID со всеми продуктами"""
+    category = db.query(models.Category).filter(models.Category.id == category_id).first()
+    if not category:
+        raise HTTPException(status_code=404, detail="Категория не найдена")
+    return category
+
+
 @app.get("/api/products", response_model=List[schemas.Product])
-def get_products(category: str = None, db: Session = Depends(get_db)):
+def get_products(category: str = None, category_id: int = None, db: Session = Depends(get_db)):
     """Получить все товары или отфильтровать по категории"""
     query = db.query(models.Product)
-    if category:
+    if category_id:
+        query = query.filter(models.Product.category_id == category_id)
+    elif category:
         query = query.filter(models.Product.category == category)
     products = query.all()
     return products
@@ -59,8 +80,18 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
 
 @app.get("/api/products/category/{category}", response_model=List[schemas.Product])
 def get_products_by_category(category: str, db: Session = Depends(get_db)):
-    """Получить товары по категории"""
+    """Получить товары по типу категории (liquids, pods, cartridges)"""
     products = db.query(models.Product).filter(models.Product.category == category).all()
+    return products
+
+
+@app.get("/api/categories/{category_id}/products", response_model=List[schemas.Product])
+def get_products_by_category_id(category_id: int, db: Session = Depends(get_db)):
+    """Получить товары по ID категории"""
+    category = db.query(models.Category).filter(models.Category.id == category_id).first()
+    if not category:
+        raise HTTPException(status_code=404, detail="Категория не найдена")
+    products = db.query(models.Product).filter(models.Product.category_id == category_id).all()
     return products
 
 

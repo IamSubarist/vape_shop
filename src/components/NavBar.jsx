@@ -53,10 +53,25 @@ export const NavBar = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: "/", label: "Жидкости" },
-    { path: "/cartridges", label: "Картриджи" },
-    { path: "/pods", label: "Устройства" },
+    { path: "/", label: "Жидкости", matchPaths: ["/", "/liquids"] },
+    { path: "/cartridges", label: "Картриджи", matchPaths: ["/cartridges"] },
+    { path: "/pods", label: "Устройства", matchPaths: ["/pods"] },
   ];
+
+  // Функция для определения активного пункта меню
+  const isNavItemActive = (item) => {
+    const path = location.pathname;
+    
+    // Для жидкостей проверяем корневой путь и путь /liquids/...
+    if (item.path === "/") {
+      return path === "/" || path.startsWith("/liquids/");
+    }
+    
+    // Для других пунктов проверяем точное совпадение и подпути
+    return item.matchPaths.some(matchPath => 
+      path === matchPath || path.startsWith(`${matchPath}/`)
+    );
+  };
 
   return (
     <nav className="w-full">
@@ -74,7 +89,7 @@ export const NavBar = () => {
               key={item.path}
               to={item.path}
               label={item.label}
-              isActive={location.pathname === item.path}
+              isActive={isNavItemActive(item)}
             />
           ))}
         </div>
